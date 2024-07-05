@@ -92,10 +92,10 @@ export const AddCreator = () => {
         <>
         <div className="app" style={divapp}>
             <header className="header" style={header}>
-                <h1 style={{color:'white', fontSize:'8vw'}}>CREATORVERSE</h1>
+                <h1 style={{color:'white', fontSize:'8vw', fontFamily: 'Helevetica Rounded'}}>CREATORVERSE</h1>
                 <div className="button-head" style={buttonhead}>
-                    <button role="button"  style={button} onClick={() => navigate('/')}>VIEW ALL CREATORS</button>
-                    <button role="button"  style={button} onClick={() => window.location.reload()}>ADD A CREATOR</button>
+                    <button role="button"  style={button} onClick={() => navigate('/')}><b>VIEW ALL CREATORS</b></button>
+                    <button role="button"  style={button} onClick={() => window.location.reload()}><b>ADD A CREATOR</b></button>
                 </div>
             </header>
             <main style={{display: 'flex', justifyContent: 'center', marginBottom: '10px', backgroundColor: "black"}}>

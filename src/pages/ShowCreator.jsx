@@ -33,7 +33,7 @@ export const ShowCreator = () => {
         marginLeft: '20px',
         marginRight: '20px',
         backgroundColor: 'rgb(67, 115, 157)',
-        width: '25%'
+        width: '25vw'
     }
     const cardContainer = {
         display: "flex",
@@ -72,10 +72,10 @@ export const ShowCreator = () => {
         <>
         <div className="app" style={divapp}>
             <header className="header" style={header}>
-                <h1 style={{color:'white', fontSize:'8vw'}}>CREATORVERSE</h1>
+                <h1 style={{color:'white', fontSize:'8vw', fontFamily: 'Helevetica Rounded'}}>CREATORVERSE</h1>
                 <div className="button-head" style={buttonhead}>
-                    <button role="button" style={button} onClick={() => window.location.reload()}>VIEW ALL CREATORS</button>
-                    <button role="button" style={button} onClick={() => navigate('/add')}>ADD A CREATOR</button>
+                    <button role="button" style={button} onClick={() => window.location.reload()}><b>VIEW ALL CREATORS</b></button>
+                    <button role="button" style={button} onClick={() => navigate('/add')}><b>ADD A CREATOR</b></button>
                 </div>
             </header>
             <main style={{backgroundColor: "black"}}>
@@ -86,14 +86,20 @@ export const ShowCreator = () => {
                 <div className="card-container" style={cardContainer}>
                 {allData != 0 && 
                 allData.map((item) => (
-                    <div className="col"  key={item.id} style={{
-                        backgroundImage: 'url('+item.imageURL+')', 
-                        padding: '10px', borderRadius: "4px", width: '45%', height:'340px', 
-                        border: '2px solid rgb(66, 74, 89)',
-                        maxwidth: '100%', backgroundSize: 'cover'}}>
-                        <Card item={item}/>    
-                    </div>
-                 ))}
+                    <>
+                        <div className="card"  key={item.id} style={{
+                            position: 'relative',
+                            backgroundImage: 'url('+item.imageURL+')', 
+                            padding: '10px', borderRadius: "4px", width: '45%', height:'340px', 
+                            border: '2px solid rgb(66, 74, 89)',
+                            maxwidth: '100%', backgroundSize: 'cover'}}>
+                            <Card item={item}/>
+                        </div>
+                        
+                    </>
+
+                    
+))}
                 </div>
                 </section>
             </main>

@@ -35,20 +35,28 @@ export const EditCreator = () => {
         width: '25%'
     }
     const modal = {
-        display: 'block',
         position: 'fixed',
+        margin: 'auto',
         zIndex: 1,
         left: 0,
         top: 0,
+        right: 0,
+        bottom: 0,
+        overflow: 'auto',
+        boxShadow: '0 0 0 9999px rgba(0, 0, 0, 0.5)',
+        backgroundColor: 'rgba(0,0,0,0.4)',
         width: '100%',
         height: '100%',
-        overflow: 'auto',
-        backgroundColor: 'rgba(0,0,0,0.4)' 
     }
     const modalContent = {
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        position: 'absolute',
+        justifyContent: 'center',
+        alignItems:'center',
         backgroundColor: 'black',
-        margin: '80px auto',
-        padding: '20px',
+        paddingTop: '130px',
         border: '4px solid rgb(67, 115, 157)',
         borderRadius: '2px',
         width: '40em',
@@ -113,10 +121,10 @@ export const EditCreator = () => {
         <>
         <div className="app" style={divapp}>
             <header className="header" style={header}>
-                <h1 style={{color:'white', fontSize:'8vw'}}>CREATORVERSE</h1>
+                <h1 style={{color:'white', fontSize:'8vw', fontFamily: 'Helevetica Rounded'}}>CREATORVERSE</h1>
                 <div className="button-head" style={buttonhead}>
-                    <button role="button"  style={button} onClick={() => navigate('/')}>VIEW ALL CREATORS</button>
-                    <button role="button"  style={button} onClick={() => navigate('/add')}>ADD A CREATOR</button>
+                    <button role="button"  style={button} onClick={() => navigate('/')}><b>VIEW ALL CREATORS</b></button>
+                    <button role="button"  style={button} onClick={() => navigate('/add')}><b>ADD A CREATOR</b></button>
                 </div>
             </header>
             <main style={{display: 'flex', marginBottom: '10px', backgroundColor: "black"}}>
@@ -164,10 +172,10 @@ export const EditCreator = () => {
             </main>
         </div>
 
-        <div className="section_modal" style={{ display: openEditModal ? 'inline-block' : 'none' }}>
+        <div className="section_modal" style={{ display: openEditModal ? 'block' : 'none'}}>
             <div className="modal" style={modal}>
                 <div className="modal-content" style={modalContent}>
-                    <h1 style={{color: 'rgb(67, 115, 157)', fontSize: '7vh', marginTop: '2em'}}>WAIT!!!!</h1>
+                    <h1 style={{color: 'rgb(67, 115, 157)', fontSize: '6vh'}}><i className="fas fa-exclamation-triangle" style={{color: '#eed202'}}></i> WAIT!!!! <i className="fas fa-exclamation-triangle" style={{color: '#eed202'}}></i></h1>
                     <p style={{color: 'white', fontSize: '3vh'}}>Are you sure you want to delete asc???</p>
                     <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                         <button role="button" style={{width: '40%', margin: '20px', border: '1px solid rgb(67, 115, 157)', backgroundColor:'rgb(67, 115, 157)'}} onClick={() => setEditModalOpen(false)}><b>NAH, NEVER MIND</b></button>

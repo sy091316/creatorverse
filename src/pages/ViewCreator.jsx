@@ -1,11 +1,20 @@
 import { React, useState, useEffect} from 'react';
 import {supabase} from "../client";
 import {useNavigate, useLocation} from "react-router-dom";
-import banner from "../images/banner.jpg"
+import banner from "../images/banner.jpg";
 
 
 
 export const ViewCreator = () => {
+    const navigate = useNavigate();
+    const [open, setOpen] = useState(false);
+    const [allData, setallData] = useState([]);
+    //get data from showCreator
+    const result = useLocation();
+    useEffect(() => {
+        viewSpecificCreator();
+    }, [])
+        
     const divapp = {
         height: '100vh', //for center card content
         width: '100vw',
@@ -36,36 +45,45 @@ export const ViewCreator = () => {
         width: '25%'
     }
     const modal = {
-        display: 'block',
         position: 'fixed',
+        margin: 'auto',
         zIndex: 1,
         left: 0,
         top: 0,
+        right: 0,
+        bottom: 0,
+        overflow: 'auto',
+        boxShadow: '0 0 0 9999px rgba(0, 0, 0, 0.5)',
+        backgroundColor: 'rgba(0,0,0,0.4)',
         width: '100%',
         height: '100%',
-        overflow: 'auto',
-        backgroundColor: 'rgba(0,0,0,0.4)' 
     }
     const modalContent = {
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        position: 'absolute',
+        justifyContent: 'center',
+        alignItems:'center',
         backgroundColor: 'black',
-        margin: '80px auto',
-        padding: '20px',
+        paddingTop: '130px',
         border: '4px solid rgb(67, 115, 157)',
         borderRadius: '2px',
         width: '40em',
         height: '30em',
     }
 
-    const navigate = useNavigate();
-    const [open, setOpen] = useState(false);
-    const [allData, setallData] = useState([]);
-    //get data from showCreator
-    const result = useLocation();
-    useEffect(() => {
-        viewSpecificCreator();
-    }, [])
-        
-    
+    const link = {
+        display: 'flex',
+        verticalAlign: 'middle', 
+        color: 'white',
+        marginBottom:'10px',
+        paddingLeft: 0,
+        paddingRight: 0,
+        backgroundColor:'transparent',
+        border: 'none'
+    }
+ 
     async function viewSpecificCreator(){
         const {data, error} = await supabase
         .from('creators')
@@ -89,10 +107,10 @@ export const ViewCreator = () => {
         <>
         <div className="app" style={divapp}>
             <header className="header" style={header}>
-                <h1 style={{color:'white', fontSize:'8vw'}}>CREATORVERSE</h1>
+                <h1 style={{color:'white', fontSize:'8vw', fontFamily: 'Helevetica Rounded'}}>CREATORVERSE</h1>
                 <div className="button-head" style={buttonhead}>
-                    <button role="button" style={button} onClick={() => navigate('/')}>VIEW ALL CREATORS</button>
-                    <button role="button"  style={button} onClick={() => navigate('/add')}>ADD A CREATOR</button>
+                    <button role="button" style={button} onClick={() => navigate('/')}><b>VIEW ALL CREATORS</b></button>
+                    <button role="button"  style={button} onClick={() => navigate('/add')}><b>ADD A CREATOR</b></button>
                 </div>
             </header>
             <main style={{backgroundColor: "black"}}>
@@ -105,24 +123,23 @@ export const ViewCreator = () => {
                             <div className="container-column-text" style={{width: '50%', margin: '30px'}}>
                                 <h2 style={{color: 'rgb(67, 115, 157)', textAlign: 'left'}}>{item.name.toUpperCase()}</h2> 
                                 <p style={{color: 'white', textAlign: 'left'}}>{item.description}</p>
-                                <div className="row" style={{color: 'white', textAlign: 'left'}}>
+                                <div className="row" style={{color: 'white', textAlign: 'left', width: '60%', display: 'flex', flexDirection: 'column'}}>
                                     {item.youtubeURL.trim() != "" && 
-                                    <a href={item.youtubeURL} target="_blank" style={{display: 'flex', verticalAlign: 'middle', color: 'white'}}>
-                                        <i className="fa-brands fa-youtube" style={{verticalAlign: 'middle', color: 'white', fontSize: '2.5vw', marginRight: '10px'}}>
-                                        </i>
-                                        <div style={{margin: 'auto 0', color: 'white'}}>{item.youtubeURL}</div>
+                                    <a id='social' href={`https://www.youtube.com/${item.youtubeURL}`} target="_blank" style={link}>
+                                        <i className="fa-brands fa-youtube" style={{paddingRight: '13px', verticalAlign: 'middle', color: 'white', fontSize: '2.5vw', margin: 'auto 0'}}>
+                                        </i>@{item.youtubeURL}
                                     </a>
                                     }
                                     {item.twitterURL.trim() != "" && 
-                                    <a href={item.twitterURL} target="_blank" style={{display: 'flex', verticalAlign: 'middle', color: 'white'}}>
-                                        <i className="fa-brands fa-x-twitter" style={{textAlign: 'center', color: 'white', fontSize: '2.5vw', marginRight: '10px'}}></i>
-                                        <div style={{margin: 'auto 0', color: 'white'}}>{item.twitterURL}</div>
+                                    <a id='social' href={`https://www.x.com/${item.twitterURL}`} target="_blank" style={link}>
+                                        <i className="fa-brands fa-x-twitter" style={{alignItems: 'right', verticalAlign: 'middle', color: 'white', fontSize: '2.5vw', margin: 'auto 0'}}></i>
+                                        <div style={{marginLeft: '14px', color: 'white'}}>@{item.twitterURL}</div>
                                     </a>
                                     }
                                     {item.instagramURL.trim() != "" && 
-                                    <a href={item.instagramURL} target="_blank" style={{display: 'flex', verticalAlign: 'middle', color: 'white'}}>
-                                        <i className="fa-brands fa-instagram" style={{color: 'white', fontSize: '2.5vw', marginRight: '10px'}}></i>
-                                        <div style={{margin: 'auto 0', color: 'white'}}>{item.instagramURL}</div>
+                                    <a href={`https://www.instagram.com/${item.instagramURL}`} target="_blank" style={link}>
+                                        <i className="fa-brands fa-instagram" style={{alignItems: 'right',verticalAlign: 'middle', color: 'white', fontSize: '2.5vw', margin: 'auto 0'}}></i>
+                                        <div style={{marginLeft: '20px', color: 'white'}}>@{item.instagramURL}</div>
                                     </a>
                                     }  
                                 </div>
@@ -139,7 +156,7 @@ export const ViewCreator = () => {
             <div className="section_modal" style={{ display: open ? 'inline-block' : 'none' }}>
                 <div className="modal" style={modal}>
                     <div className="modal-content" style={modalContent}>
-                        <h1 style={{color: 'rgb(67, 115, 157)', fontSize: '7vh', marginTop: '2em'}}>WAIT!!!!</h1>
+                    <h1 style={{color: 'rgb(67, 115, 157)', fontSize: '6vh'}}><i className="fas fa-exclamation-triangle" style={{color: '#eed202'}}></i> WAIT!!!! <i className="fas fa-exclamation-triangle" style={{color: '#eed202'}}></i></h1>
                         <p style={{color: 'white', fontSize: '3vh'}}>Are you sure you want to delete asc???</p>
                         <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                             <button role="button" style={{width: '40%', margin: '20px', border: '1px solid rgb(67, 115, 157)', backgroundColor:'rgb(67, 115, 157)'}} onClick={() => setOpen(false)}><b>NAH, NEVER MIND</b></button>
